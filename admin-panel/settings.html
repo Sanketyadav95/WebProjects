@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Payment Management System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-shield-alt"></i> Admin Panel</h2>
+                <p id="adminEmail">admin@demo.com</p>
+            </div>
+            
+            <div class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="payments.html"><i class="fas fa-credit-card"></i> Payments</a></li>
+                    <li><a href="users.html"><i class="fas fa-users"></i> Manage Users</a></li>
+                    <li><a href="reports.html"><i class="fas fa-chart-bar"></i> Reports</a></li>
+                    <li><a href="requests.html"><i class="fas fa-trash-alt"></i> Delete Requests</a></li>
+                    <li><a href="settings.html" class="active"><i class="fas fa-cog"></i> Settings</a></li>
+                    <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header">
+                <h1><i class="fas fa-cog"></i> Admin Settings</h1>
+                <p>Manage your profile and system preferences</p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab active" data-tab="profile">
+                    <i class="fas fa-user"></i> Profile
+                </button>
+                <button class="tab" data-tab="security">
+                    <i class="fas fa-shield-alt"></i> Security
+                </button>
+                <button class="tab" data-tab="notifications">
+                    <i class="fas fa-bell"></i> Notifications
+                </button>
+                <button class="tab" data-tab="system">
+                    <i class="fas fa-cogs"></i> System
+                </button>
+            </div>
+
+            <!-- Profile Tab -->
+            <div class="tab-content active" id="profile">
+                <div class="card">
+                    <h3><i class="fas fa-user-edit"></i> Profile Information</h3>
+                    <form id="profileForm">
+                        <div class="flex gap-20">
+                            <div style="flex: 1;">
+                                <div class="form-group">
+                                    <label for="fullName" class="form-label">Full Name</label>
+                                    <input type="text" id="fullName" class="form-control" value="Admin User">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" id="email" class="form-control" value="admin@demo.com" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" id="phone" class="form-control" value="+91 9876543210">
+                                </div>
+                                <div class="form-group">
+                                    <label for="department" class="form-label">Department</label>
+                                    <input type="text" id="department" class="form-control" value="Administration">
+                                </div>
+                            </div>
+                            <div style="width: 200px;">
+                                <div class="form-group">
+                                    <label class="form-label">Profile Picture</label>
+                                    <div class="text-center">
+                                        <div style="width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: white; font-size: 3rem;">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <input type="file" id="profilePicture" accept="image/*" style="display: none;">
+                                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('profilePicture').click()">
+                                            <i class="fas fa-camera"></i> Change Photo
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Profile
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Security Tab -->
+            <div class="tab-content" id="security">
+                <div class="card">
+                    <h3><i class="fas fa-lock"></i> Change Password</h3>
+                    <form id="passwordForm">
+                        <div class="form-group">
+                            <label for="currentPassword" class="form-label">Current Password</label>
+                            <input type="password" id="currentPassword" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword" class="form-label">New Password</label>
+                            <input type="password" id="newPassword" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                            <input type="password" id="confirmPassword" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-key"></i> Update Password
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card mt-20">
+                    <h3><i class="fas fa-shield-alt"></i> Two-Factor Authentication</h3>
+                    <div class="flex justify-between align-center">
+                        <div>
+                            <p>Enhance your account security with two-factor authentication</p>
+                            <p style="color: #666; font-size: 0.9rem;">Status: <span id="twoFactorStatus" class="status-badge status-pending">Disabled</span></p>
+                        </div>
+                        <button class="btn btn-success" id="enable2FA">
+                            <i class="fas fa-mobile-alt"></i> Enable 2FA
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card mt-20">
+                    <h3><i class="fas fa-history"></i> Login History</h3>
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Date & Time</th>
+                                    <th>IP Address</th>
+                                    <th>Device</th>
+                                    <th>Location</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="loginHistory">
+                                <tr>
+                                    <td>2024-01-15 10:30 AM</td>
+                                    <td>192.168.1.100</td>
+                                    <td>Chrome on Windows</td>
+                                    <td>Mumbai, India</td>
+                                    <td><span class="status-badge status-success">Success</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notifications Tab -->
+            <div class="tab-content" id="notifications">
+                <div class="card">
+                    <h3><i class="fas fa-bell"></i> Email Notifications</h3>
+                    <form id="notificationForm">
+                        <div class="form-group">
+                            <div class="flex justify-between align-center">
+                                <div>
+                                    <strong>Payment Notifications</strong>
+                                    <p style="color: #666; font-size: 0.9rem;">Get notified when payments are received</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="paymentNotifications" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="flex justify-between align-center">
+                                <div>
+                                    <strong>User Registration</strong>
+                                    <p style="color: #666; font-size: 0.9rem;">Get notified when new users register</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="userNotifications" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="flex justify-between align-center">
+                                <div>
+                                    <strong>Deletion Requests</strong>
+                                    <p style="color: #666; font-size: 0.9rem;">Get notified about deletion requests</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="requestNotifications" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="flex justify-between align-center">
+                                <div>
+                                    <strong>Daily Reports</strong>
+                                    <p style="color: #666; font-size: 0.9rem;">Receive daily summary reports via email</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="dailyReports">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Preferences
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- System Tab -->
+            <div class="tab-content" id="system">
+                <div class="card">
+                    <h3><i class="fas fa-cogs"></i> System Configuration</h3>
+                    <form id="systemForm">
+                        <div class="form-group">
+                            <label for="timezone" class="form-label">Timezone</label>
+                            <select id="timezone" class="form-control">
+                                <option value="Asia/Kolkata" selected>Asia/Kolkata (IST)</option>
+                                <option value="UTC">UTC</option>
+                                <option value="America/New_York">America/New_York (EST)</option>
+                                <option value="Europe/London">Europe/London (GMT)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="currency" class="form-label">Default Currency</label>
+                            <select id="currency" class="form-control">
+                                <option value="INR" selected>Indian Rupee (₹)</option>
+                                <option value="USD">US Dollar ($)</option>
+                                <option value="EUR">Euro (€)</option>
+                                <option value="GBP">British Pound (£)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dateFormat" class="form-label">Date Format</label>
+                            <select id="dateFormat" class="form-control">
+                                <option value="DD/MM/YYYY" selected>DD/MM/YYYY</option>
+                                <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                                <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recordsPerPage" class="form-label">Records Per Page</label>
+                            <select id="recordsPerPage" class="form-control">
+                                <option value="10">10</option>
+                                <option value="25" selected>25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Settings
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card mt-20">
+                    <h3><i class="fas fa-database"></i> Data Management</h3>
+                    <div class="flex gap-10">
+                        <button class="btn btn-warning" id="exportData">
+                            <i class="fas fa-download"></i> Export All Data
+                        </button>
+                        <button class="btn btn-secondary" id="backupData">
+                            <i class="fas fa-save"></i> Create Backup
+                        </button>
+                        <button class="btn btn-danger" id="clearData">
+                            <i class="fas fa-trash"></i> Clear All Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Custom CSS for Toggle Switch -->
+    <style>
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    </style>
+
+    <script src="js/settings.js"></script>
+</body>
+</html>
